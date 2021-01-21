@@ -1,4 +1,5 @@
-'''Run the script where the "simplesamlphp.log" file is saved.
+'''
+   Run the script where the "simplesamlphp.log" file is saved.
 
    Usage:
    
