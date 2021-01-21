@@ -1,3 +1,14 @@
+'''Run the script where the "simplesamlphp.log" file is saved.
+
+   Usage:
+   
+   Tested with Python v2.7.16:
+   python parse-ssp-logs.py > /var/log/simplesamlphp.stat
+   
+   Tested with Python v3.7.3:
+   python3 parse-ssp-logs.py > /var/log/simplesamlphp.stat
+'''
+
 import socket
 import sys
 
