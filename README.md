@@ -40,3 +40,6 @@ The script is needed to those SimpleSAMLphp IdP that did not install 'statistics
 
 8. Find statistics on the following page of the SSP IdP:
    * `https://<SERVER-NAME>/simplesaml/module.php/statistics/showstats.php`
+
+## Authors
+ * Marco Malavolti (marco.malavolti@garr.it)
