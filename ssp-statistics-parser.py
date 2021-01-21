@@ -3,10 +3,10 @@
    Usage:
    
    Tested with Python v2.7.16:
-   python parse-ssp-logs.py > /var/log/simplesamlphp.stat
+   python ssp-statistics-parser.py > /var/log/simplesamlphp.stat
    
    Tested with Python v3.7.3:
-   python3 parse-ssp-logs.py > /var/log/simplesamlphp.stat
+   python3 ssp-statistics-parser.py > /var/log/simplesamlphp.stat
 '''
 
 import socket
