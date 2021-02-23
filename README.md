@@ -32,8 +32,9 @@ The script is needed to those SimpleSAMLphp IdP that did not install 'statistics
    * Python 2: `python ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
    * Python 3: `python3 ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
 
-6. Run the following command and check if the "STAT" word is on the position [3]:
-   * `cd simplesamlphp/module/statistics/bin/ ; loganalyzer.php --debug`
+6. Run the following commands and check if the "STAT" word is on the position [3]:
+   * `cd simplesamlphp/modules/statistics/bin/`
+   * `loganalyzer.php --debug`
 
 7. If check is OK, create statistics with:
    * `sudo loganalyzer.php`
