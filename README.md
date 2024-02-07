@@ -42,7 +42,7 @@ It converts the `simplesamlphp.log` log file into the format compatible with the
 7. If check is OK, create statistics with:
    * `sudo loganalyzer.php`
 
-8. Find statistical data on the 'statistics' web page of your SSP IdP administrative panel.
+8. Find statistical data on the `statistics` web page of your SSP IdP administrative panel.
 
 ## Authors
  * Marco Malavolti (marco.malavolti@garr.it)
