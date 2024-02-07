@@ -32,7 +32,7 @@ The script is needed to those SimpleSAMLphp IdP that did not install 'statistics
    * Python 2: `python ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
    * Python 3: `python3 ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
 
-6. Run the following commands and check if the "STAT" word is on the position [3]:
+6. Configuring the syntax of the logfile as explained in the [SimpleSAMLphp statistics module documentation](https://simplesamlphp.org/docs/contrib_modules/statistics/statistics.html):
    * `cd simplesamlphp/modules/statistics/bin/`
    * `loganalyzer.php --debug`
 
