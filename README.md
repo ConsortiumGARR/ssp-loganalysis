@@ -1,9 +1,12 @@
 # ssp-statistics-parser
-The script is needed to those SimpleSAMLphp IdP that did not install 'statistics' module before. It converts the simplesamlphp.log log into a format compatible with the code provided by the module.
+
+**The script is applicable to those who have enabled the Authentication Process Filter "[statistics:StatisticsWithAttribute](https://simplesamlphp.org/docs/contrib_modules/statistics/authproc_statisticswithattribute.html)" but not the [SimpleSAMLphp statistics module](https://simplesamlphp.org/docs/contrib_modules/statistics/statistics.html) on the Identity Provider.**
+
+It converts the `simplesamlphp.log` log file into the format compatible with the `statistics` module.
 
 ## Instructions
 
-1. Enable '`statistics`' module '`simplesamlphp/config/config.php`':
+1. Enable `statistics` module `simplesamlphp/config/config.php`:
    * `sudo vim /var/simplesamlphp/config/config.php`
    
      ```php
@@ -21,14 +24,14 @@ The script is needed to those SimpleSAMLphp IdP that did not install 'statistics
      'statdir' => '/var/simplesamlphp/stats/',
      ```
 
-3. Create the '`stats`' directory and assign the ownership to the apache user:
+3. Create the `stats` directory and assign the ownership to the apache user:
    * `sudo mkdir /var/simplesamlphp/stats`
    * `sudo chown www-data /var/simplesamlphp/stats`
    
-4. Insert `ssp-statistics-parser.py`' into the same directory of the '`simplesamlphp.log`':
+4. Insert `ssp-statistics-parser.py` into the same directory of the `simplesamlphp.log`:
    * `wget "https://raw.githubusercontent.com/ConsortiumGARR/ssp-statistics-parser/main/ssp-statistics-parser.py" -O /var/simplesamlphp/log/ssp-statistics-parser.py`
 
-5. Create the input file "`simplesamlphp.stat`":
+5. Create the input file `simplesamlphp.stat`:
    * Python 2: `python ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
    * Python 3: `python3 ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
 
