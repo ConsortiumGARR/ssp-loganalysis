@@ -1,7 +1,7 @@
 <?php
 
 /*
- * ssp-loganalisys
+ * ssp-loganalysis
  *
  * This tool operates on STAT logs from a SimpleSAMLphp IdP (both compressed and uncompressed) and is used to collect usage statistics."
  */
@@ -63,7 +63,7 @@ if ($file_lines !== false) {
 
 /* Get SimpleSAMLphp IdP stats */
 if ($argc != 2) {
-    echo "Usage: php ssp-loganalisys.php <file_path>\n";
+    echo "Usage: php ssp-loganalysis.php <file_path>\n";
     exit(1);
 }
 
