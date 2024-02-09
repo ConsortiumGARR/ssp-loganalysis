@@ -51,7 +51,7 @@ $file_lines = readLinesFromFile($ssp_config_lib_file);
 if ($file_lines !== false) {
     foreach ($file_lines as $line) {
       if (str_contains($line, 'public const VERSION =')){
-	       $version = explode(' ',$line)[8];
+         $version = explode(' ',$line)[8];
          $version = str_replace("'", "", $version);
          $version = str_replace(";", "", $version);
          $version = trim($version);
