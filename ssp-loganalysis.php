@@ -51,7 +51,7 @@ $file_lines = readLinesFromFile($ssp_config_lib_file);
 if ($file_lines !== false) {
     foreach ($file_lines as $line) {
       if (str_contains($line, 'public const VERSION =')){
-	 $version = explode(' ',$line)[8];
+	       $version = explode(' ',$line)[8];
          $version = str_replace("'", "", $version);
          $version = str_replace(";", "", $version);
          $version = trim($version);
@@ -96,7 +96,7 @@ if ($file_lines !== false) {
          if (isset($idem_stats["logins_per_rp"][$rp])) {
             $idem_stats["logins_per_rp"][$rp] += 1;
          } else {
-   	    $idem_stats["logins_per_rp"][$rp] = 1;
+   	        $idem_stats["logins_per_rp"][$rp] = 1;
          }
    	 
          $idem_stats["stats"]["rps"] = count($idem_stats["logins_per_rp"]);
@@ -106,6 +106,6 @@ if ($file_lines !== false) {
     echo "Unable to read $ssp_config_lib_file.\n";
 }
 
-echo json_encode($idem_stats, JSON_UNESCAPED_SLASHES);
+echo json_encode($idem_stats, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
 ?>
