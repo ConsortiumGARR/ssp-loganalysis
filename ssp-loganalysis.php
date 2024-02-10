@@ -45,20 +45,22 @@ function readLinesFromFile($filename) {
     return $lines;
 }
 
-/* Get SimpleSAMLphp IdP Version */
-$ssp_config_lib_file = $ssp_home_dir."/vendor/simplesamlphp/simplesamlphp/lib/SimpleSAML/Configuration.php";
-$file_lines = readLinesFromFile($ssp_config_lib_file);
-if ($file_lines !== false) {
-    foreach ($file_lines as $line) {
-      if (str_contains($line, 'public const VERSION =')){
-         $version = explode(' ',$line)[8];
-         $version = str_replace("'", "", $version);
-         $version = str_replace(";", "", $version);
-         $version = trim($version);
-      }
-    }
-} else {
-    echo "Unable to read $ssp_config_lib_file.\n";
+function get_ssp_version() {
+
+   $ssp_config_lib_file = $ssp_home_dir."/vendor/simplesamlphp/simplesamlphp/lib/SimpleSAML/Configuration.php";
+   $file_lines = readLinesFromFile($ssp_config_lib_file);
+   if ($file_lines !== false) {
+       foreach ($file_lines as $line) {
+         if (str_contains($line, 'public const VERSION =')){
+            $version = explode(' ',$line)[8];
+            $version = str_replace("'", "", $version);
+            $version = str_replace(";", "", $version);
+            return trim($version);
+         }
+       }
+   } else {
+       echo "Unable to read $ssp_config_lib_file.\n";
+}
 }
 
 /* Get SimpleSAMLphp IdP stats */
@@ -79,7 +81,7 @@ $idem_stats = [
    "stats" => [
       "logins" => 0,
       "rps" => 0,
-      "ssp-version" => $version,
+      "ssp-version" => get_ssp_version(),
    ],
    "logins_per_rp" => [],
 ];
