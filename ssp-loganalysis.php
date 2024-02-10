@@ -103,7 +103,7 @@ if ($file_lines !== false) {
       }
     }
 } else {
-    echo "Unable to read $ssp_config_lib_file.\n";
+    echo "Unable to read $ssp_stat_file.\n";
 }
 
 echo json_encode($idem_stats, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
