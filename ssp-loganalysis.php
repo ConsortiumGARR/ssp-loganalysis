@@ -17,6 +17,7 @@
 
 /* SSP HOME Directory to configure */
 define('SSP_HOME_DIR', '/var/simplesamlphp');
+require(SSP_HOME_DIR . '/vendor/autoload.php');
 
 function readLinesFromFile($filename) {
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -43,25 +44,6 @@ function readLinesFromFile($filename) {
     return $lines;
 }
 
-function get_ssp_version() {
-
-   $ssp_config_lib_file = SSP_HOME_DIR."/vendor/simplesamlphp/simplesamlphp/lib/SimpleSAML/Configuration.php";
-   $file_lines = readLinesFromFile($ssp_config_lib_file);
-   $version = null;
-   if ($file_lines !== false) {
-       foreach ($file_lines as $line) {
-         if (str_contains($line, 'public const VERSION =')){
-            $version = explode(' ',$line)[8];
-            $version = str_replace("'", "", $version);
-            $version = str_replace(";", "", $version);
-            return trim($version);
-         }
-       }
-   } else {
-       echo "Unable to read $ssp_config_lib_file.\n";
-}
-}
-
 /* Get SimpleSAMLphp IdP stats */
 if ($argc != 2) {
     echo "Usage: php ssp-loganalysis.php <file_path>\n";
@@ -80,7 +62,7 @@ $idem_stats = [
    "stats" => [
       "logins" => 0,
       "rps" => 0,
-      "ssp-version" => get_ssp_version(),
+      "ssp-version" => \SimpleSAML\Configuration::VERSION,
    ],
    "logins_per_rp" => [],
 ];
