@@ -15,10 +15,8 @@
  * Feb  9 10:27:19 ssp-idp simplesamlphp[62995]: 5 STAT [2d3387ea6f] User 'admin' successfully authenticated from 90.147.163.3
  */
 
-/* SSP Variables */
-$ssp_home_dir = "/var/simplesamlphp";
-$version = null;
-/* ************* */
+/* SSP HOME Directory to configure */
+define('SSP_HOME_DIR', '/var/simplesamlphp');
 
 function readLinesFromFile($filename) {
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -47,8 +45,9 @@ function readLinesFromFile($filename) {
 
 function get_ssp_version() {
 
-   $ssp_config_lib_file = $ssp_home_dir."/vendor/simplesamlphp/simplesamlphp/lib/SimpleSAML/Configuration.php";
+   $ssp_config_lib_file = SSP_HOME_DIR."/vendor/simplesamlphp/simplesamlphp/lib/SimpleSAML/Configuration.php";
    $file_lines = readLinesFromFile($ssp_config_lib_file);
+   $version = null;
    if ($file_lines !== false) {
        foreach ($file_lines as $line) {
          if (str_contains($line, 'public const VERSION =')){
@@ -89,8 +88,8 @@ $idem_stats = [
 $file_lines = readLinesFromFile($ssp_stat_file);
 if ($file_lines !== false) {
     foreach ($file_lines as $line) {
-      //print("LINE:".$line);
       $array = explode(' ',$line);
+      if (!isset($array[9])) continue;
       if ($array[9] == 'saml20-idp-SSO') {
          $idem_stats["stats"]["logins"] += 1;
          $rp = $array[10];   
