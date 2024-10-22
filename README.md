@@ -1,48 +1,51 @@
-# ssp-statistics-parser
+# ssp-loganalysis.php
 
-**The script is applicable to those who have enabled the Authentication Process Filter "[statistics:StatisticsWithAttribute](https://simplesamlphp.org/docs/contrib_modules/statistics/authproc_statisticswithattribute.html)" but not the [SimpleSAMLphp statistics module](https://simplesamlphp.org/docs/contrib_modules/statistics/statistics.html) on the Identity Provider.**
+**The script is applicable to those who have enabled the Authentication Process Filter "[statistics:StatisticsWithAttribute](https://simplesamlphp.org/docs/contrib_modules/statistics/authproc_statisticswithattribute.html)" on the Identity Provider.**
 
-It converts the `simplesamlphp.log` log file into the format compatible with the `statistics` module.
+```php
+45 => [
+    'class' => 'core:StatisticsWithAttribute',
+    'attributename' => 'realm',
+    'type' => 'saml20-idp-SSO',
+],
+```
 
-## Instructions
+Example of a log line considered:
 
-1. Enable `statistics` module `simplesamlphp/config/config.php`:
-   * `sudo vim /var/simplesamlphp/config/config.php`
-   
-     ```php
-     'module.enable' => [
-        'statistics' => true,
-     ],
-     ```
+```bash
+Feb  7 12:32:12 ssp-idp simplesamlphp[27612]: 5 STAT [46ff6971c4] saml20-idp-SSO https://sp.aai-test.garr.it/shibboleth https://ssp-idp.aai-test.garr.it/simplesaml-212/module.php/saml/idp/metadata NA
+```
 
-2. Configure it:
-   * `cp simplesamlphp/modules/statistics/config-templates/*.php simplesamlphp/config/`
-   * `vim simplesamlphp/config/module_statistics.php`
-   
-     ```php
-     'inputfile' => '/var/log/simplesamlphp.stat',
-     'statdir' => '/var/simplesamlphp/stats/',
-     ```
+What remains to be done to produce the required statistics is:
 
-3. Create the `stats` directory and assign the ownership to the apache user:
-   * `sudo mkdir /var/simplesamlphp/stats`
-   * `sudo chown www-data /var/simplesamlphp/stats`
-   
-4. Insert `ssp-statistics-parser.py` into the same directory of the `simplesamlphp.log`:
-   * `wget "https://raw.githubusercontent.com/ConsortiumGARR/ssp-statistics-parser/main/ssp-statistics-parser.py" -O /var/simplesamlphp/log/ssp-statistics-parser.py`
+  1. Split the log lines present in the single file `/var/log/simplesamlphp.log` or `/var/log/simplesamlphp.stat` into individual files, one for each month (e.g., `simplesamlphp-YYYY-MM.log` or `simplesamlphp-YYYY-MM.stat`).
 
-5. Create the input file `simplesamlphp.stat`:
-   * Python 2: `python ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
-   * Python 3: `python3 ssp-statistics-parser.py > /var/log/simplesamlphp.stat`
+  2. Set the constant `SSP_HOME_DIR` within the script.
 
-6. Configuring the syntax of the logfile as explained in the [SimpleSAMLphp statistics module documentation](https://simplesamlphp.org/docs/contrib_modules/statistics/statistics.html):
-   * `cd simplesamlphp/modules/statistics/bin/`
-   * `loganalyzer.php --debug`
+At this point, executing the script for each month will yield:
 
-7. If check is OK, create statistics with:
-   * `sudo loganalyzer.php`
+```bash
+php ssp-loganalysis.php simplesamlphp-2023-01.log > /tmp/idp-$(dnsdomainname)-2023-01-sso-stats.json
 
-8. Find statistical data on the `statistics` web page of your SSP IdP administrative panel.
+php ssp-loganalysis.php simplesamlphp-2023-02.log > /tmp/idp-$(dnsdomainname)-2023-02-sso-stats.json
+```
+
+This will produce files like `idp-garr.it-2023-01-sso-stats.json` in the following JSON format:
+
+```json
+{
+    "stats": {
+        "logins": 17,
+        "rps": 1,
+        "ssp-version": "1.19.8"
+    },
+    "logins_per_rp": {
+        "https://sp.aai-test.garr.it/shibboleth": 17
+    }
+}
+```
+
+These files can be sent to IDEM as an attachment.
 
 ## Authors
  * Marco Malavolti (marco.malavolti@garr.it)
