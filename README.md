@@ -2,6 +2,10 @@
 
 **The script is applicable to those who have enabled the Authentication Process Filter "[statistics:StatisticsWithAttribute](https://simplesamlphp.org/docs/contrib_modules/statistics/authproc_statisticswithattribute.html)" on the Identity Provider.**
 
+To determine if your SimpleSAMLphp installation has the required Authentication Process Filter enabled, which is required by this HOWTO, check the following files:
+
+* `metadata/saml20-idp-hosted.php`
+
 ```php
 45 => [
     'class' => 'core:StatisticsWithAttribute',
