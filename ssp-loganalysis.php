@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
  * ssp-loganalysis
@@ -71,8 +71,26 @@ $file_lines = readLinesFromFile($ssp_stat_file);
 if ($file_lines !== false) {
     foreach ($file_lines as $line) {
       $array = explode(' ',$line);
-      if (!isset($array[9])) continue;
-      if ($array[9] == 'saml20-idp-SSO') {
+      //print_r($array);
+      //  Array
+      //  (
+      //      [0] => Oct
+      //      [1] => 11
+      //      [2] => 16:57:45
+      //      [3] => ssp-idp
+      //      [4] => simplesamlphp[194572]:
+      //      [5] => 5
+      //      [6] => STAT
+      //      [7] => [5d25fe4675]
+      //      [8] => saml20-idp-SSO
+      //      [9] => https://ssp-sp.aai-test.garr.it/metadata
+      //      [10] => https://ssp-idp.aai-test.garr.it/simplesaml-212/module.php/saml/idp/metadata
+      //      [11] => NA
+      //  
+      //  )
+
+      if (!isset($array[8])) continue;
+      if ($array[8] == 'saml20-idp-SSO') {
          $idem_stats["stats"]["logins"] += 1;
          $rp = $array[10];   
    
