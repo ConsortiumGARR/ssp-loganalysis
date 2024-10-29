@@ -27,9 +27,9 @@ What remains to be done to produce the required statistics is:
 At this point, executing the script for each month will yield:
 
 ```bash
-php ssp-loganalysis.php simplesamlphp-2023-01.log > /tmp/idp-$(dnsdomainname)-2023-01-sso-stats.json
+php ssp-loganalysis.php simplesamlphp-2023-01.log > /tmp/idp_$(dnsdomainname)_2023_01_sso_stats.json
 
-php ssp-loganalysis.php simplesamlphp-2023-02.log > /tmp/idp-$(dnsdomainname)-2023-02-sso-stats.json
+php ssp-loganalysis.php simplesamlphp-2023-02.log > /tmp/idp_$(dnsdomainname)-2023_02_sso_stats.json
 ```
 
 This will produce files like `idp-garr.it-2023-01-sso-stats.json` in the following JSON format:
