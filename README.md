@@ -32,7 +32,7 @@ php ssp-loganalysis.php simplesamlphp-2023-01.log > /tmp/idp_$(dnsdomainname)_20
 php ssp-loganalysis.php simplesamlphp-2023-02.log > /tmp/idp_$(dnsdomainname)_2023_02_sso_stats.json
 ```
 
-This will produce files like `idp-garr.it-2023-01-sso-stats.json` in the following JSON format:
+This will produce files like `idp_garr.it_2023_01_sso_stats.json` in the following JSON format:
 
 ```json
 {
