@@ -95,7 +95,7 @@ if ($file_lines !== false) {
       if ($array[8] == 'saml20-idp-SSO') {
          $prev_id = $id;
          $idem_stats["stats"]["logins"] += 1;
-         $rp = $array[10];   
+         $rp = $array[9];   
    
          if (isset($idem_stats["logins_per_rp"][$rp])) {
             $idem_stats["logins_per_rp"][$rp] += 1;
