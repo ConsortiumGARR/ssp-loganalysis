@@ -71,6 +71,9 @@ $file_lines = readLinesFromFile($ssp_stat_file);
 if ($file_lines !== false) {
     $prev_id = 0;
     foreach ($file_lines as $line) {
+      // this line replace double spaces in date from 1 to 9 in some log formats
+      $line=str_replace("  "," ",$line);
+        
       $array = explode(' ',$line);
       $id = $array[7];
       //print_r($array);
