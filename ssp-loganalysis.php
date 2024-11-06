@@ -29,7 +29,9 @@ function getSSPVersion (){
             } else {
                 return SSP_STATIC_VERSION;
             }
-        }    
+        } else {
+            return SSP_STATIC_VERSION;
+        }  
     } catch (\Throwable $th) {
         return SSP_STATIC_VERSION;
     }
