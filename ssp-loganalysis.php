@@ -15,10 +15,25 @@
  * Feb  9 10:27:19 ssp-idp simplesamlphp[62995]: 5 STAT [2d3387ea6f] User 'admin' successfully authenticated from 90.147.XXX.YYY
  */
 
-/* SSP HOME Directory to configure */
-define('SSP_HOME_DIR', '/var/simplesamlphp');
-require(SSP_HOME_DIR . '/vendor/autoload.php');
+/* SSP Autoloader to configure to find automagically SSP Version*/
+define('SSP_AUTOLOADER', '/var/simplesamlphp/vendor/autoload.php');
+/* or you can use a fixed string for SSP Version */
+define ('SSP_STATIC_VERSION','Unknown');
 
+function getSSPVersion (){
+    try {
+        if (defined('SSP_AUTOLOADER') && file_exists(SSP_AUTOLOADER)) {
+            require_once (SSP_AUTOLOADER);
+            if (class_exists('SimpleSAML\Configuration')) {
+                return \SimpleSAML\Configuration::VERSION;
+            } else {
+                return SSP_STATIC_VERSION;
+            }
+        }    
+    } catch (\Throwable $th) {
+        return SSP_STATIC_VERSION;
+    }
+}
 function readLinesFromFile($filename) {
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
     if ($extension === 'gz') {
@@ -62,7 +77,8 @@ $idem_stats = [
    "stats" => [
       "logins" => 0,
       "rps" => 0,
-      "ssp-version" => \SimpleSAML\Configuration::VERSION,
+      "ssp-version" => getSSPVersion (),
+
    ],
    "logins_per_rp" => [],
 ];
